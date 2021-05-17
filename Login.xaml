@@ -10,9 +10,29 @@
         AllowsTransparency="True" Background="Transparent"
         WindowStyle="None" ResizeMode="NoResize"
         MouseDown="Window_MouseDown" WindowStartupLocation="CenterScreen" >
+
+    <Window.Resources>
+        <Style x:Key="ButtonMain" TargetType="Button">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF2F2251"></Setter>
+                </Trigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsMouseOver" Value="True"></Condition>
+                        <Condition Property="IsPressed" Value="True"></Condition>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="Foreground" Value="White"></Setter>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="60*"/>
+            <ColumnDefinition Width="20*"/>
             <ColumnDefinition Width="300*"/>
             <ColumnDefinition Width="60*"/>
         </Grid.ColumnDefinitions>
@@ -27,41 +47,33 @@
         </Border>
 
         <Button x:Name="close" Width="30" Height="30" Click="close_Click" Grid.Column="2" FontSize="18" Content="X" BorderBrush="Black" BorderThickness="2" Background="{x:Null}" Margin="14,10,10,16" />
-        <Button Width="30" Height="30" Grid.Column="1" FontSize="14" Content="RU" BorderBrush="Black" BorderThickness="2" Background="{x:Null}" Margin="232,10,10,16" />
-        <Button Width="30" Height="30" Grid.Column="1" FontSize="14" Content="EN" BorderBrush="Black" BorderThickness="2" Background="{x:Null}" Margin="197,10,45,16" />
-
         <TextBlock Text="ВОЙДИТЕ" FontSize="30" Foreground="white" Margin="10,13,0,55" HorizontalAlignment="Left" Grid.Column="1" VerticalAlignment="Center"
                    Height="40" Width="158" Grid.Row="1" />
 
         <StackPanel Grid.Row="2" Grid.Column="1" >
             <StackPanel Orientation="Horizontal">
-                <TextBlock FontWeight="Light" Text="Username:" Width="120" FontSize="24"   HorizontalAlignment="Stretch"   Foreground="White" Background="Transparent" 
+                <TextBlock FontWeight="Light" Text="Пользователь:" Width="152" FontSize="24"   HorizontalAlignment="Stretch"   Foreground="White" Background="Transparent" 
                       Height="40" />
-                <TextBox x:Name="usernamecontainer" FontWeight="Light" Text="" MaxLength="10" FontSize="24" VerticalContentAlignment="Bottom"  HorizontalAlignment="Stretch"   Foreground="White" 
-                         Background="Transparent"  BorderThickness="0"  HorizontalContentAlignment="Left"  Height="40" Margin="0,0,0,0" Width="142"/>
+                <TextBox x:Name="usernamecontainer" FontWeight="Light" FontSize="26" Text="pain" MaxLength="10" VerticalContentAlignment="Top"  HorizontalAlignment="Stretch"   Foreground="White" 
+                         Background="Transparent"  BorderThickness="0"  HorizontalContentAlignment="Left"  Height="42" Margin="10,0,0,0" Width="137"/>
             </StackPanel>
-            <Border Height="2" Background="White" Margin="120,0,0,0"/>
+            <Border Height="2" Background="White" Margin="157,0,0,0"/>
 
             <StackPanel Orientation="Horizontal">
-                <TextBlock FontWeight="Light" Text="Password:" Width="120" FontSize="24"   HorizontalAlignment="Stretch"   Foreground="White" Background="Transparent" 
+                <TextBlock FontWeight="Light" Text="Пароль:" Width="109" FontSize="24"   HorizontalAlignment="Stretch"   Foreground="White" Background="Transparent" 
                       Height="40" />
-                <PasswordBox x:Name="passwdcontainer" FontWeight="Light" Password="password" FontSize="24" MaxLength="20"  VerticalContentAlignment="Bottom" HorizontalAlignment="Stretch" 
+                <PasswordBox x:Name="passwdcontainer" FontWeight="Light" Password="password" FontSize="24" MaxLength="20"  VerticalContentAlignment="Top" HorizontalAlignment="Stretch" 
                              Foreground="White" 
                              Background="Transparent"  BorderThickness="0"  HorizontalContentAlignment="Left"  Height="40"  Width="143"/>
             </StackPanel>
-            <Border Height="2" Background="White" Margin="120,0,0,0"/>
+            <Border Height="2" Background="White" Margin="105,0,0,0"/>
 
         </StackPanel>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="3" >
-            <Button x:Name="login" Click="login_Click" Width="200" Height="40" FontSize="18" Foreground="white" Content="LOGIN" Margin="0,0,0,30" BorderBrush="White" BorderThickness="2">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                        <GradientStop Color="#FF594985" Offset="1"/>
-                        <GradientStop Color="#FF594985"/>
-                    </LinearGradientBrush>
-                </Button.Background>
+            <Button x:Name="login" Template="{StaticResource for login}" Style="{StaticResource ButtonMain}" Click="login_Click" Height="40" FontSize="18" Foreground="white" Content="ВОЙТИ" Margin="50,10,25,30" BorderBrush="White" BorderThickness="2">
+                
             </Button>
-            <Button x:Name="register" Click="register_Click" Width="200" Height="40" FontSize="18" Content="REGISTER" BorderBrush="Black" BorderThickness="2" Background="{x:Null}"/>
+            <Button x:Name="register" Template="{StaticResource for login}"  Style="{StaticResource ButtonMain}" Click="register_Click" Height="40" FontSize="18" Content="РЕГИСТРАЦИЯ" BorderBrush="Black" BorderThickness="2"  Margin="50,0,25,0"/>
 
         </StackPanel>
     </Grid>

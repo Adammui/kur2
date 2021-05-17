@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище painDBModelContainer" CdmEntityContainer="painDB_Entities">
+    <EntitySetMapping Name="pictures">
+      <EntityTypeMapping TypeName="painDBModel.picture">
+        <MappingFragment StoreEntitySet="pictures">
+          <ScalarProperty Name="path" ColumnName="path" />
+          <ScalarProperty Name="descript" ColumnName="descript" />
+          <ScalarProperty Name="painting_id" ColumnName="painting_id" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="painting" ColumnName="painting" />
+          <ScalarProperty Name="date_created" ColumnName="date_created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="painDBModel.user">
+        <MappingFragment StoreEntitySet="users">
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="passw" ColumnName="passw" />
+          <ScalarProperty Name="role" ColumnName="role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

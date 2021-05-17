@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище painDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="pictures">
+    <Key>
+      <PropertyRef Name="painting_id" />
+    </Key>
+    <Property Name="painting_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="nvarchar" MaxLength="10" />
+    <Property Name="painting" Type="varbinary(max)" Nullable="false" />
+    <Property Name="date_created" Type="datetime" />
+    <Property Name="path" Type="nvarchar" MaxLength="40" />
+    <Property Name="descript" Type="nvarchar" MaxLength="40" />
+  </EntityType>
+  <EntityType Name="users">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="username" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="passw" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="role" Type="nvarchar" MaxLength="5" />
+  </EntityType>
+  <Association Name="username_fk">
+    <End Role="users" Type="Self.users" Multiplicity="0..1" />
+    <End Role="pictures" Type="Self.pictures" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="pictures">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище painDBModelContainer">
+    <EntitySet Name="pictures" EntityType="Self.pictures" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="username_fk" Association="Self.username_fk">
+      <End Role="users" EntitySet="users" />
+      <End Role="pictures" EntitySet="pictures" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
