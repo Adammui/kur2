@@ -4,20 +4,14 @@ using System.Windows.Input;
 namespace GraphicTool
 {
     /// <summary>
-    /// Логика взаимодействия для Message.xaml
+    /// Логика взаимодействия для Infopicker.xaml
     /// </summary>
-    public partial class Message : Window
+    public partial class Infopicker : Window
     {
-        public Message(string message)
+        public Infopicker(string message)
         {
             InitializeComponent();
             wintext.Text = message;
-
-        }
-        public Message()
-        {
-            InitializeComponent();
-            
         }
 
         private void ok_Click(object sender, RoutedEventArgs e)

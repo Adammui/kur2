@@ -13,19 +13,16 @@ namespace GraphicTool
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public partial class user
-    {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public user()
-        {
-            this.pictures = new HashSet<picture>();
-        }
-    [Key]
+    public partial class picture
+    { [Key]
+        public int painting_id { get; set; }
         public string username { get; set; }
-        public string passw { get; set; }
-        public string role { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<picture> pictures { get; set; }
+        public byte[] painting { get; set; }
+        public Nullable<System.DateTime> date_created { get; set; }
+        public string descript { get; set; }
+        public string path { get; set; }
+        public byte[] bg { get; set; }
+
+        public virtual user user { get; set; }
     }
 }

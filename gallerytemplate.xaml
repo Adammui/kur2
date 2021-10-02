@@ -5,20 +5,42 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GraphicTool"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="450">
-    <Grid>
+             d:DesignHeight="450" d:DesignWidth="450" >
+    <Grid >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="150*"/>
+            <ColumnDefinition Width="150*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="350*"/>
             <RowDefinition Height="100*"/>
         </Grid.RowDefinitions>
-        <Border CornerRadius="5" Grid.ColumnSpan="2" Grid.RowSpan="2" BorderBrush="Black" BorderThickness="2"></Border>
-        <Image x:Name="img" Grid.Row="0" Margin="0,0,30,0" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="390" Height="320" VerticalAlignment="Bottom"/>
-        <Button x:Name="del" Content="Удалить" Width="150" Height="50" Grid.Row="1" Grid.Column="0" />
-        <Button x:Name="red" Content="Продолжить" Width="150" Height="50" Grid.Row="1" Grid.Column="1"/>
+        <Border x:Name="usersitem" Grid.ColumnSpan="3" Grid.RowSpan="2" CornerRadius="5" Width ="450" BorderBrush="Black" BorderThickness="2" Background="#99000000"></Border>
+        <Border CornerRadius="5" Width ="450" Grid.ColumnSpan="3"  BorderBrush="Black" BorderThickness="2"></Border>
+        <Image x:Name="img"  Grid.Row="0" Margin="30,30,30,30" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" MaxWidth="390" MaxHeight="320" VerticalAlignment="Stretch"/>
+        <TextBox x:Name="descrip" Background="Black" Foreground="White" BorderBrush="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Text="" FontSize="24" Margin="30,10,30,305" Grid.ColumnSpan="3" />
+        <StackPanel Name="pattern"  Background="Black"  Grid.ColumnSpan="3" Orientation="Vertical" Visibility="Hidden" Margin="2,2" >
+            <TextBlock x:Name="iddd" Visibility="Hidden"></TextBlock>
+            <TextBlock Text="Владелец:" HorizontalAlignment="Center" FontSize="20" ></TextBlock>
+            <TextBox x:Name="owner" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Text="" FontSize="20" IsEnabled="false" ></TextBox>
+            <Border BorderThickness="2" BorderBrush="black" ></Border>
+
+            <TextBlock Text="Описание:" HorizontalAlignment="Center" FontSize="20" ></TextBlock>
+            <TextBox x:Name="description" IsEnabled="false" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Text="" FontSize="20" ></TextBox>
+            <Border BorderThickness="2" BorderBrush="black" ></Border>
+
+            <TextBlock Text="Дата последнего изменения:" HorizontalAlignment="Center" FontSize="20" ></TextBlock>
+            <TextBox x:Name="datet" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Text="" FontSize="20" IsEnabled="false"></TextBox>
+            <Border BorderThickness="2" BorderBrush="black" ></Border>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="del" IsEnabled="false" Template="{StaticResource NoMouseOverButtonTemplate}" Style="{StaticResource ButtonMain}" FontSize="20" Width="215" Click="del_Click" Content="Удалить" Height="50" Grid.Row="1" Grid.Column="0" Margin="5" />
+                <Button x:Name="edit" IsEnabled="false" Template="{StaticResource NoMouseOverButtonTemplate}" Style="{StaticResource ButtonMain}" FontSize="20" Width="215" Click="edit_Click" Content="Сохранить изменения" Height="50" Grid.Row="1" Grid.Column="0" />
+            </StackPanel>
+
+        </StackPanel>
+
+        <Button x:Name="show" Template="{StaticResource NoMouseOverButtonTemplate}" Style="{StaticResource ButtonMain}" FontSize="20"  VerticalAlignment="center" Click="show_Click" Content="Параметры рисунка" Height="50" Grid.Row="1" Margin="30,25,0,25"/>
+        <Button x:Name="continue_" IsEnabled="false" Template="{StaticResource NoMouseOverButtonTemplate}" Style="{StaticResource ButtonMain}" FontSize="20"  VerticalAlignment="center" Click="continue_Click" Content="Продолжить" Height="50" Grid.Row="1" Grid.Column="1" Margin="0,25,30,25"/>
 
     </Grid>
 </UserControl>

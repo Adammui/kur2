@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:GraphicTool"
         mc:Ignorable="d"
         Title="Message" Height="300" Width="300"
-         AllowsTransparency="True" Background="Transparent"
+         AllowsTransparency="True" Icon="Resources\icon.png" Background="Transparent"
         WindowStyle="None" ResizeMode="NoResize"
         MouseDown="Window_MouseDown" WindowStartupLocation="CenterScreen">
     <Grid>
@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
         <Border CornerRadius="10" Grid.RowSpan="3" Background="#FF594985" BorderBrush="Black" BorderThickness="1,4"/>
         <Button Click="no_Click" Width="30" Height="30" FontSize="18" Content="X" BorderBrush="Black" BorderThickness="2" Background="{x:Null}" Margin="260,10,10,11" />
-        <TextBlock x:Name="wintext" TextWrapping="Wrap" Text="" VerticalAlignment="Stretch" TextAlignment="Center" FontSize="18" TextTrimming="None" HorizontalAlignment="Stretch" Grid.Row="1" Margin="10,0"/>
+        <TextBlock x:Name="wintext" TextWrapping="Wrap" Text="" VerticalAlignment="Stretch" TextAlignment="Center" FontSize="16" TextTrimming="None" HorizontalAlignment="Stretch" Grid.Row="1" Margin="10,0"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="3" >
             <Button x:Name="ok" Click="ok_Click" Width="100" Height="40" FontSize="18" Foreground="Black" Content="OK" Margin="0,0,30,0" Background="{x:Null}" BorderBrush="Black" BorderThickness="2"/>
             <Button x:Name="no" Click="no_Click" Width="100" Height="40" FontSize="18" Content="ОТМЕНА" BorderBrush="Black" BorderThickness="2" Background="{x:Null}"/>

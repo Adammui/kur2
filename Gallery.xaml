@@ -6,12 +6,20 @@
       xmlns:local="clr-namespace:GraphicTool"
       mc:Ignorable="d" 
       d:DesignHeight="959" d:DesignWidth="1920"
-      Title="Gallery">
+      Title="Gallery" >
     <Grid>
+        
         <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="True" Margin="0,0,0,0" >
-            <StackPanel>
-                <StackPanel x:Name="stack_to_add" VerticalAlignment="Top" Orientation="Horizontal" Margin="80,20,80,0" Height="450" ></StackPanel>
-                <StackPanel x:Name="stack_to_add1" VerticalAlignment="Top" Orientation="Horizontal" Margin="80,20,80,0" Height="450" ></StackPanel>
+            
+            <StackPanel  Orientation="Horizontal" >
+                <StackPanel Orientation="Vertical">
+                    <Button Name="b1" Content="По имени рисунка" Template="{StaticResource NoMouseOverButtonTemplate}" Style="{StaticResource ButtonMain}" Click="sortName" FontSize="20" Height="50" Width="250" VerticalAlignment="Top" Margin="20"></Button>
+                    <Button Name="b2" Content="По дате добавления" Template="{StaticResource NoMouseOverButtonTemplate}" Style="{StaticResource ButtonMain}" Click="sortDate"  FontSize="20" Height="50" Width="250" VerticalAlignment="Top" Margin="20"></Button>
+                </StackPanel>
+                <StackPanel x:Name="stack_to_add" VerticalAlignment="Top" Orientation="Vertical" Margin="20,20,50,0" Width="450" ></StackPanel>
+                <StackPanel x:Name="stack_to_add1" VerticalAlignment="Top" Orientation="Vertical" Margin="20,20,50,0" Width="450" ></StackPanel>
+                <StackPanel x:Name="stack_to_add2" VerticalAlignment="Top" Orientation="Vertical" Margin="20,20,50,0" Width="450" >
+            </StackPanel>
             </StackPanel>
         </ScrollViewer>
     </Grid>

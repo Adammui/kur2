@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      
+      xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
       xmlns:local="clr-namespace:GraphicTool"
       mc:Ignorable="d" 
       d:DesignHeight="959" d:DesignWidth="1920"
@@ -20,118 +20,85 @@
             <RowDefinition Height="500*"/>
         </Grid.RowDefinitions>
 
-        <Menu Grid.Row="0" FontSize="20" VerticalAlignment="Stretch" Background="Transparent" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" Margin="0,0,11,0">
+        <Menu Grid.Row="0" FontSize="20" VerticalAlignment="Stretch" Background="#FF2F2251" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" Grid.ColumnSpan="2" Margin="-5,0,0,0">
             <MenuItem Header="Файл" Height="50" Foreground="Black" BorderBrush="Black" BorderThickness="2" Margin="10,5,0,5"  >
-                <MenuItem Header="Сохранить проект"   BorderBrush="Black" >
-                    <MenuItem Header="В галерею ctrl s"  BorderBrush="Black"></MenuItem>
-                    <MenuItem Header="В файл" Click="SaveintoFile" BorderBrush="Black"></MenuItem>
-                </MenuItem>
-                <MenuItem Header="Открыть проект"  BorderBrush="Black">
-                    <MenuItem Header="Из галереи"></MenuItem>
-                    <MenuItem Header="Из файла" ></MenuItem>
-                </MenuItem>
+                <MenuItem Header="Сохранить В галерею ctrl s" Click="SaveintoGallery"  BorderBrush="Black"></MenuItem>
+                <MenuItem Header="Сохранить В файл" Click="SaveintoFile" BorderBrush="Black"></MenuItem>
             </MenuItem>
             <MenuItem Header="Изменение" Height="50" Foreground="Black" BorderBrush="Black" BorderThickness="2" Margin="10,5,0,5" >
                 <MenuItem x:Name="undo" IsEnabled="False" Click="Undo" Header="Назад                                 ctrl z"/>
                 <MenuItem x:Name="redo" IsEnabled="False" Click="Redo" Header="Вперед                               ctrl y" ></MenuItem>
-                <MenuItem Header="Очистить холст" ></MenuItem>
-                <MenuItem Header="Копировать(выделенное)ctrl c" ></MenuItem>
-                <MenuItem Header="Вырезать(выделенное)" ></MenuItem>
-                <MenuItem Header="Вставить(выделенное)     ctrl v" ></MenuItem>
+                <MenuItem Header="Очистить холст" Click="Clear" ></MenuItem>
             </MenuItem>
             <MenuItem Header="Окно" Height="50" Foreground="Black"  BorderBrush="Black" BorderThickness="2"  Margin="10,5,0,5" >
-                <MenuItem Header="Скрыть инструменты" ></MenuItem>
-                <MenuItem Header="Список быстрых клавиш" ></MenuItem>
+                <MenuItem Header="Скрыть/открыть инструменты" Click="hidepanel" ></MenuItem>
+                <MenuItem Header="Список быстрых клавиш" Click="showbinds"></MenuItem>
             </MenuItem>
         </Menu>
-        <Menu HorizontalAlignment="right"  Width="384" FontSize="20" VerticalAlignment="Stretch" Background="Transparent"  HorizontalContentAlignment="Right" Grid.Column="1">
-            <MenuItem Header="&lt;"  Click="Undo" Height="50" Foreground="Black"  BorderBrush="Black" BorderThickness="2"  Margin="10,5,0,5">
-            </MenuItem>
-            <MenuItem Header=">"  Click="Redo" Height="50" Foreground="Black"  BorderBrush="Black" BorderThickness="2"  Margin="10,5,0,5">
-            </MenuItem>
-            <MenuItem Header="Очистить холст"  Click="Clear" Height="50" Foreground="Black"  BorderBrush="Black" BorderThickness="2"  Margin="10,5,0,5">
-            </MenuItem>
-
-        </Menu>
-
 
         <Grid x:Name="root" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.ColumnSpan="2" >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1200*"/>
-                <ColumnDefinition Width="150*"/>
-                <ColumnDefinition Width="150*"/>
+                <ColumnDefinition Width="1536*"/>
+                <ColumnDefinition Width="185*"/>
+                <ColumnDefinition Width="200*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="500*"/>
                 <RowDefinition Height="500*"/>
             </Grid.RowDefinitions>
 
-            <Grid.Resources>
-                <!--Define an array containing the InkEditingMode Values.-->
-                <x:Array x:Key="MyEditingModes" Type="{x:Type InkCanvasEditingMode}">
-                    <x:Static Member="InkCanvasEditingMode.Ink"/>
-                    <x:Static Member="InkCanvasEditingMode.Select"/>
-                    <x:Static Member="InkCanvasEditingMode.EraseByPoint"/>
-                    <x:Static Member="InkCanvasEditingMode.EraseByStroke"/>
-                </x:Array>
-                <!--Create a DataTemplate to display the 
-                DrawingAttributes shown above-->
-                <DataTemplate DataType="{x:Type DrawingAttributes}" >
-                    <Border Width="80" Height="{Binding Path=Height}">
-                        <Border.Background >
-                            <SolidColorBrush Color="{Binding Path=Color}"/>
-                        </Border.Background>
-                    </Border>
-                </DataTemplate>
-                <!--Define an array containing some DrawingAttributes.-->
-                <x:Array x:Key="MyDrawingAttributes" Type="{x:Type DrawingAttributes}">
-                    <DrawingAttributes Color="Black" FitToCurve="true" 
-                         Width="3" Height="3"/>
-                    <DrawingAttributes Color="Blue" FitToCurve="false" 
-                         Width="5" Height="5"/>
-                    <DrawingAttributes Color="Red" IgnorePressure="False" FitToCurve="true" 
-                         Width="7" Height="7"/>
-                </x:Array>
-
-            </Grid.Resources>
-
-
-            <!--Bind the first InkCavas' DefaultDrawingAtributes to a 
-                Listbox, called lbDrawingAttributes, and its EditingMode to 
-                  a ListBox called lbEditingMode.-->
-            <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Grid.RowSpan="2">
-                <InkCanvas Name="ic" Background="White" Canvas.Top="10"
-                DefaultDrawingAttributes="{Binding ElementName=lbDrawingAttributes, Path=SelectedItem}"
-                EditingMode="{Binding ElementName=lbEditingMode, Path=SelectedItem}" HorizontalAlignment="Right" Width="1519" Height="891" 
-                           StrokeCollected="ic_StrokeCollected"  >
+            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="3" Grid.RowSpan="2">
+                
+                <ScrollViewer x:Name="ic_scroll" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" HorizontalAlignment="Stretch"
+                              Grid.RowSpan="2" Width="1519">
+                <InkCanvas Name="ic" Cursor="Pen" MouseRightButtonDown="ic_MouseDown" MouseRightButtonUp="ic_MouseUp"  EditingMode="Ink" Background="Transparent"
+                           Canvas.Top="10" HorizontalAlignment="Right" Width="1519" Height="909" >
+                        <Image Name="background" Visibility="Hidden"  Width="1519" Height="909" ></Image>
                 </InkCanvas>
-            </ScrollViewer>
+                </ScrollViewer>
 
-            <!--Bind the Strokes, DefaultDrawingAtributes, and, EditingMode properties of
-                 the second InkCavas the first InkCanvas.
-                <InkCanvas Background="LightBlue"  
-                 Canvas.Top="34" Canvas.Left="787" 
-                 Height="400" Width="200" 
-                 Strokes="{Binding ElementName=ic, Path=Strokes}" 
-                 DefaultDrawingAttributes="{Binding 
-                  ElementName=ic, Path=DefaultDrawingAttributes}" 
-                 EditingMode="{Binding ElementName=ic, Path=EditingMode}">
+                <StackPanel Name="instruments" Visibility="Visible" Background="white" Orientation="Vertical" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                    <colorpicker:PortableColorPicker HorizontalAlignment="left" x:Name="pickcolor" ColorChanged="PortableColorPicker_ColorChanged" 
+                                                     ColorState="{Binding ColorState, ElementName=main, Mode=TwoWay}"/>
+                    <colorpicker:StandardColorPicker x:Name="main" Width="385" Height="330" />
+                    <Menu HorizontalAlignment="right" Width="384" FontSize="20" VerticalAlignment="Stretch" Background="Transparent" HorizontalContentAlignment="Right" 
+                          Grid.Column="1">
+                        <MenuItem x:Name="undoz" Header="&lt;" IsEnabled="False" Click="Undo" Height="50" Foreground="Black" BorderBrush="Black" BorderThickness="2" 
+                                  Margin="10,5,0,5">
+                        </MenuItem>
+                        <MenuItem x:Name="redoz" Header=">" IsEnabled="False" Click="Redo" Height="50" Foreground="Black" BorderBrush="Black" BorderThickness="2" 
+                                  Margin="10,5,0,5">
+                        </MenuItem>
+                        <MenuItem Header="Очистить холст" Click="Clear" Height="50" Foreground="Black" BorderBrush="Black" BorderThickness="2" Margin="10,5,0,5">
+                        </MenuItem>
 
-                <InkCanvas.LayoutTransform>
-                    <ScaleTransform ScaleX="-1" ScaleY="1" />
-                </InkCanvas.LayoutTransform>
-
-                </InkCanvas>-->
-
-            <!--Use the array, MyEditingModes, to populate a ListBox-->
-            <ListBox Name="lbEditingMode" Grid.Column="1"
-                ItemsSource="{StaticResource MyEditingModes}" Grid.RowSpan="2" />
-
-            <!--Use the array, MyDrawingAttributes, to populate a ListBox-->
-            <ListBox Name="lbDrawingAttributes"
-           ItemsSource="{StaticResource MyDrawingAttributes}" Grid.Column="2" Grid.Row="1" />
+                    </Menu>
+                    <Button Height="50" Template="{StaticResource NoMouseOverButtonTemplate}" Style="{StaticResource ButtonMain}" Content="Кисть" Click="Кисть_Click" x:Name="Кисть"></Button>
+                    <Slider Height="25" Visibility="Collapsed" x:Name="Sliderink" ValueChanged ="Sliderink_ValueChanged" Maximum="40" Value="5" Cursor="Hand" Margin="10" Minimum="1" />
+                    <Button Height="50" Template="{StaticResource NoMouseOverButtonTemplate}" Style="{StaticResource ButtonMain}" Content="Перо" Click="Перо_Click" x:Name="Перо"></Button>
+                    <Slider Height="25" Visibility="Collapsed" x:Name="Sliderpencil" ValueChanged ="Sliderpencil_ValueChanged" Maximum="40" Value="5" Cursor="Hand" Margin="10" Minimum="1" />
+                    <Button Height="50" Template="{StaticResource NoMouseOverButtonTemplate}" Style="{StaticResource ButtonMain}" Content="Ластик" Click="Ластик_Click" x:Name="Ластик"></Button>
+                    <Slider Height="25" Visibility="Collapsed" x:Name="Slidereraser" ValueChanged ="Slidereraser_ValueChanged" Maximum="40" Value="5" Cursor="Hand" Margin="10" Minimum="1" />
+                    <Button Height="50" Template="{StaticResource NoMouseOverButtonTemplate}" Style="{StaticResource ButtonMain}" Content="Выделение" Click="Выделение_Click" x:Name="Выделение"></Button>
+                    <Button Height="50" Template="{StaticResource NoMouseOverButtonTemplate}" Style="{StaticResource ButtonMain}" Content="Цвет фона" Click="Заливка_Click" x:Name="Заливка"></Button>
+                    <Button Height="50" Template="{StaticResource NoMouseOverButtonTemplate}" Style="{StaticResource ButtonMain}" Content="Картинка фона" Click="Картинка_Click" x:Name="Картинка"></Button>
+                    <StackPanel Orientation="Horizontal" Height="80" Margin="5">
+                        <Button  Template="{StaticResource NoMouseOverButtonTemplate}" Style="{StaticResource ButtonMain}"  Click="fig1_Click" x:Name="elipsecolored">
+                            <Image Source="Resources\ellipse.png"></Image>
+                        </Button>
+                        <Button  Template="{StaticResource NoMouseOverButtonTemplate}" Style="{StaticResource ButtonMain}"  Click="fig2_Click" x:Name="elipse">
+                            <Image Source="Resources\contellipse.png"></Image>
+                        </Button>
+                        <Button  Template="{StaticResource NoMouseOverButtonTemplate}" Style="{StaticResource ButtonMain}"  Click="fig3_Click" x:Name="rect">
+                            <Image Source="Resources\rect.png"></Image>
+                        </Button>
+                        <Button  Template="{StaticResource NoMouseOverButtonTemplate}" Style="{StaticResource ButtonMain}"  Click="fig4_Click" x:Name="contrect">
+                            <Image Source="Resources\contrect.png"></Image>
+                        </Button>
+                        <TextBlock Text="Правой кнопкой проведите диагональ " Margin="10,3,0,0" Width="73" TextWrapping="Wrap" FontSize="14" TextDecorations="Underline"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
         </Grid>
-
-
     </Grid>
 </Page>

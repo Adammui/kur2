@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище painDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="pictures">
+          <Key>
+            <PropertyRef Name="painting_id" />
+          </Key>
+          <Property Name="painting_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="10" />
+          <Property Name="painting" Type="varbinary(max)" Nullable="false" />
+          <Property Name="date_created" Type="datetime" />
+          <Property Name="path" Type="nvarchar(max)" />
+          <Property Name="descript" Type="nvarchar" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="passw" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="role" Type="nvarchar" MaxLength="5" />
+        </EntityType>
+        <Association Name="username_username_fk">
+          <End Role="users" Type="Self.users" Multiplicity="0..1" />
+          <End Role="pictures" Type="Self.pictures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="pictures">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище painDBModelContainer">
+          <EntitySet Name="pictures" EntityType="Self.pictures" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="username_username_fk" Association="Self.username_username_fk">
+            <End Role="users" EntitySet="users" />
+            <End Role="pictures" EntitySet="pictures" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="painDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="picture">
+          <Key>
+            <PropertyRef Name="painting_id" />
+          </Key>
+          <Property Name="painting_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="painting" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="user" Relationship="Self.username_username_pk" FromRole="pictures" ToRole="users" />
+          <Property Name="descript" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="path" Type="String" FixedLength="false" Unicode="true" MaxLength="Max" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="passw" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="role" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="pictures" Relationship="Self.username_username_pk" FromRole="users" ToRole="pictures" />
+        </EntityType>
+        <Association Name="username_username_pk">
+          <End Role="users" Type="Self.user" Multiplicity="0..1" />
+          <End Role="pictures" Type="Self.picture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="pictures">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="painDB_Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="pictures" EntityType="Self.picture" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <AssociationSet Name="username_username_pk" Association="Self.username_username_pk">
+            <End Role="users" EntitySet="users" />
+            <End Role="pictures" EntitySet="pictures" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище painDBModelContainer" CdmEntityContainer="painDB_Entities">
+          <EntitySetMapping Name="pictures">
+            <EntityTypeMapping TypeName="painDBModel.picture">
+              <MappingFragment StoreEntitySet="pictures">
+                <ScalarProperty Name="path" ColumnName="path" />
+                <ScalarProperty Name="descript" ColumnName="descript" />
+                <ScalarProperty Name="painting_id" ColumnName="painting_id" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="painting" ColumnName="painting" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="painDBModel.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="passw" ColumnName="passw" />
+                <ScalarProperty Name="role" ColumnName="role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
