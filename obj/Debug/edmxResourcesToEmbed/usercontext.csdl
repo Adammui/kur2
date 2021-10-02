@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="painDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="picture">
+    <Key>
+      <PropertyRef Name="painting_id" />
+    </Key>
+    <Property Name="painting_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="username" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="painting" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="date_created" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="user" Relationship="Self.username_username_pk" FromRole="pictures" ToRole="users" />
+    <Property Name="descript" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="path" Type="String" FixedLength="false" Unicode="true" MaxLength="Max" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="username" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="passw" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="role" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="pictures" Relationship="Self.username_username_pk" FromRole="users" ToRole="pictures" />
+  </EntityType>
+  <Association Name="username_username_pk">
+    <End Role="users" Type="Self.user" Multiplicity="0..1" />
+    <End Role="pictures" Type="Self.picture" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="pictures">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="painDB_Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="pictures" EntityType="Self.picture" />
+    <EntitySet Name="users" EntityType="Self.user" />
+    <AssociationSet Name="username_username_pk" Association="Self.username_username_pk">
+      <End Role="users" EntitySet="users" />
+      <End Role="pictures" EntitySet="pictures" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
