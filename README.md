@@ -14,3 +14,8 @@
 ## Запуск
 Можно открыть и забилтить в Visual Studio. Или использовать exeшник из дебага. Это приложение нигде не выложено, поэтому только так.
 > bin/Debug/GraphicTool.exe
+## Скриншоты
+### Вход в приложение
+![image](https://user-images.githubusercontent.com/53793144/187750815-237c030e-b23f-488e-9aa2-0516d23ff8fb.png)
+### Основное окно
+![image](https://user-images.githubusercontent.com/53793144/187750890-6a94c5ba-6b68-4b7a-8ef8-12f80f0fd682.png)
