@@ -1,5 +1,25 @@
-# Курсовой проект со второго курса
-Графический редактор на C# с базой данных для хранения изображений.
+# Course project from 2nd year
+Graphics editor on C# with built-in database
+### Main functions:
+•	Save and open images. 
+•	Authentification and authorization when user launches app.
+•	User rolse: basic and admin (administrator can edit information of users and all images).
+•	Connect to database and recieve data from it.
+•	Filter all the images by author and date. 
+### Used tools:
+– Microsoft Visual Studio 2019;
+– WPF; 
+– Microsoft SQL Server.
+– Entity Framework;
+## Launch
+Build with Visual Studio. Or use debug exe.
+> bin/Debug/GraphicTool.exe
+## Showcase
+### Enter app
+![image](https://user-images.githubusercontent.com/53793144/187750815-237c030e-b23f-488e-9aa2-0516d23ff8fb.png)
+### MainWindow
+![image](https://user-images.githubusercontent.com/53793144/187750890-6a94c5ba-6b68-4b7a-8ef8-12f80f0fd682.png)
+# RU
 ### Основные задачи:
 •	Сохранять и открывать графические файлы. 
 •	Авторизация пользователя при входе в приложение.
@@ -14,8 +34,3 @@
 ## Запуск
 Можно открыть и забилтить в Visual Studio. Или использовать exeшник из дебага.
 > bin/Debug/GraphicTool.exe
-## Скриншоты
-### Вход в приложение
-![image](https://user-images.githubusercontent.com/53793144/187750815-237c030e-b23f-488e-9aa2-0516d23ff8fb.png)
-### Основное окно
-![image](https://user-images.githubusercontent.com/53793144/187750890-6a94c5ba-6b68-4b7a-8ef8-12f80f0fd682.png)
